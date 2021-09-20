@@ -18,8 +18,7 @@ import com.arha.commentable.service.FeedService;
 @RestController
 @RequestMapping("/api/home")
 public class HomeController {
-	@Autowired
-	@Qualifier("firstfeedService")
+	@Autowired 
 	private FeedService feedService;
 
 	@GetMapping("")

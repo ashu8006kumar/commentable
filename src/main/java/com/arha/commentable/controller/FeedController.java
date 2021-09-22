@@ -16,7 +16,7 @@ import com.arha.commentable.bo.FeedDetailBo;
 import com.arha.commentable.service.FeedService;
 
 @RestController
-@RequestMapping("/api/feed")
+@RequestMapping("/api/feeds")
 public class FeedController {
 
 	@Autowired

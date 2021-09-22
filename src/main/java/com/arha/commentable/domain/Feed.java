@@ -1,14 +1,20 @@
 package com.arha.commentable.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.arha.commentable.datatype.StatusValue;
 
 @Entity(name = "feeds")
 public class Feed {
@@ -31,7 +37,11 @@ public class Feed {
 	private Date lastUpdated;
 
 	@Column(name = "status", nullable = false)
-	private String status; // active, blocked, reported
+	@Enumerated(EnumType.STRING)
+	private StatusValue status;
+
+	@OneToMany(mappedBy = "feed", orphanRemoval = true)
+	private List<Comment> comments;
 
 	public Long getId() {
 		return id;
@@ -81,12 +91,20 @@ public class Feed {
 		this.lastUpdated = lastUpdated;
 	}
 
-	public String getStatus() {
+	public StatusValue getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusValue status) {
 		this.status = status;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	public Feed() {

@@ -42,8 +42,11 @@ public class FeedController {
 	 */
 	@PostMapping("")
 	public FeedDetailBo save(@RequestBody @Valid FeedDetailBo feed) {
-		feed.setId(1L);
-		return feed;
+		try {
+			return feedService.save(feed);
+		} catch (Exception e) {
+			throw new RuntimeException("Internal server error.");
+		}
 	}
 
 	/**

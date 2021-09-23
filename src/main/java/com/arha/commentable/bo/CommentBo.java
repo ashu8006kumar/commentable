@@ -18,5 +18,11 @@ public class CommentBo {
 	public void setText(String text) {
 		this.text = text;
 	}
+	public CommentBo(Long id, @NotBlank String text) {
+		super();
+		this.id = id;
+		this.text = text;
+	}
+	
 	
 }

@@ -18,6 +18,8 @@ public class CommentController {
 
 	@GetMapping("/{feedId}")
 	public void list(@PathVariable Long feedId) {
+		
+		
 
 	}
 

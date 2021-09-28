@@ -10,7 +10,6 @@ public class FeedBo {
 	private Long id;
 	private String description;
 	private Date dateCreated;
-	
 	private List<CommentBo> comments;
 
 	public Long getId() {

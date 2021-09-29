@@ -1,5 +1,5 @@
 package com.arha.commentable.datatype;
 
 public enum RoleValue {
-	ADMIN, USER;
+	ROLE_ADMIN, ROLE_USER;
 }

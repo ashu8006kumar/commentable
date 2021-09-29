@@ -16,12 +16,22 @@ public class User {
 	private Long id;
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
+	@Column(name = "x_password", nullable = false)
+	private String password;
 	@Column(name = "name", nullable = false)
 	private String name;  
 	@OneToMany(mappedBy="user" , orphanRemoval=true)
 	private List<UserRole> userRoles;
 	
 	private boolean enabled = true;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public List<UserRole> getUserRoles() {
 		return userRoles;

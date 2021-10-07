@@ -37,5 +37,13 @@ public class UserRole {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	public UserRole() {
+		
+	}
+	public UserRole( Role role,User user) {
+		super();
+		this.user = user;
+		this.role = role;
+	}
 	
 }

@@ -25,6 +25,10 @@ public class Role {
 	@OneToMany(mappedBy = "role", orphanRemoval = true)
 	private List<UserRole> userRoles;
 
+	public Role(RoleValue role) {
+		this.userRole=role;
+	}
+
 	@Override
 	public String toString() {
 		return "Role [userRole=" + userRole.name() + "]";
@@ -74,6 +78,9 @@ public class Role {
 		if (userRole != other.userRole)
 			return false;
 		return true;
+	}
+	public Role() {
+		
 	}
 
 }

@@ -1,61 +1,48 @@
 package com.arha.commentable.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.arha.commentable.bo.FeedBo;
-import com.arha.commentable.service.FeedService;
+import com.arha.commentable.bo.LoginBo;
+import com.arha.commentable.util.JwtUtil;
 
 @RestController
 @RequestMapping("/api/home")
 public class HomeController {
-	@Autowired 
-	private FeedService feedService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
-	@GetMapping("")
-	public String welcome() {
-		return "Hi , Welcome to Spring boot RestController";
-	}
-
-	@GetMapping("/list")
-	public List<String> list() {
-		List<String> names = new ArrayList<String>();
-		names.add("Ashish");
-		names.add("Dipesh");
-		names.add("Ishwor");
-		names.add("Sameep");
-		names.add("Tenzing");
-		names.add("Ashish");
-		names.add("Ishwor");
-		names.add("Sameep");
-
-		return names;
-	}
-
-	@GetMapping("/map")
-	public Map<String, String> map() {
-		Map<String, String> nameMap = new HashMap<String, String>();
-		nameMap.put("key1", "value1");
-		nameMap.put("key", "value");
-		return nameMap;
-	}
-
-	@GetMapping("/bo")
-	public List<FeedBo> bo() {
-		return feedService.myFeeds();
-	}
-
-	@GetMapping("/{name}")
-	public String welcome(@PathVariable String name) {
-		return "Hi " + name + ", Welcome to Spring boot RestController";
-	}
+	@Autowired
+	private JwtUtil jwtUtil;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	/**
+	 * 
+	 * @param LoginBo
+	 * This will take username and password 
+	 * validate username and pass and genrate token
+	 * @return 
+	 * @return TokenDto
+	 */
+	@PostMapping("/login")
+	public String login(@Valid @RequestBody LoginBo loginBo) {
+		authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(loginBo.getUsername(), loginBo.getPassword()));
+		
+		UserDetails userDetail = userDetailsService.loadUserByUsername(loginBo.getUsername());
+		return jwtUtil.generateToken(userDetail);
+	} 
+	
 
 }

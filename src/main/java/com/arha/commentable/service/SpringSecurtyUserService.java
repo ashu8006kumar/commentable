@@ -2,7 +2,6 @@ package com.arha.commentable.service;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,9 +32,8 @@ public class SpringSecurtyUserService implements UserDetailsService {
 		for (UserRole userRole : userFromDb.getUserRoles()) {
 			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRole.getRole().getUserRole().name());
 			authorities.add(grantedAuthority);
-		}
-		String password = "XYZ";
-		User springSecurityUser = new User(userFromDb.getEmail(), password, authorities);
+		} 
+		User springSecurityUser = new User(userFromDb.getEmail(), userFromDb.getPassword(), authorities);
 		return springSecurityUser;
 	}
 

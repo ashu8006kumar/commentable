@@ -3,6 +3,8 @@ package com.arha.commentable.service;
 import java.util.Collection;
 import java.util.HashSet;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +23,7 @@ public class SpringSecurtyUserService implements UserDetailsService {
 	private UserService userService;
 
 	@Override
+	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		com.arha.commentable.domain.User userFromDb = userService.findUserByEmail(username);
 		if (userFromDb == null) {

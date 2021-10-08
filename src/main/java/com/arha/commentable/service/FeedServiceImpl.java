@@ -31,13 +31,13 @@ public class FeedServiceImpl implements FeedService {
 	@Transactional
 	public List<FeedBo> myFeeds() {
 		List<FeedBo> feeds = new ArrayList<>();
-		List<Feed> list=feedRepository.findAllByCreatedBy("Ashish@XYZ");
+		List<Feed> list = feedRepository.findAllByCreatedBy("Ashish@XYZ");
 		for (Feed feed : list) {
-			FeedBo bo=new FeedBo(feed.getId(),feed.getDescription(), feed.getDateCreated());
+			FeedBo bo = new FeedBo(feed.getId(), feed.getDescription(), feed.getDateCreated());
 			if (!CollectionUtils.isEmpty(feed.getComments())) {
 				bo.setComments(new ArrayList<>());
 				for (Comment comment : feed.getComments()) {
-					CommentBo cbo=new CommentBo(comment.getId(),comment.getText());
+					CommentBo cbo = new CommentBo(comment.getId(), comment.getText());
 					bo.getComments().add(cbo);
 				}
 			}
@@ -47,7 +47,7 @@ public class FeedServiceImpl implements FeedService {
 	}
 
 	@Override
-	public FeedDetailBo save(FeedDetailBo feedBo) { 
+	public FeedDetailBo save(FeedDetailBo feedBo) {
 		Feed feed = new Feed();
 		feed.setDescription(feedBo.getDescription());
 		feed.setDateCreated(new Date());
@@ -67,6 +67,15 @@ public class FeedServiceImpl implements FeedService {
 		feed.setUpdatedBy("XYZ@XYZ");
 		feedRepository.save(feed);
 		return feedBo;
+	}
+
+	@Override
+	public Feed get(Long id) {
+		Feed feed = feedRepository.getById(id);
+		if (feed != null) {
+			return feed;
+		}
+		throw new RuntimeException("Feed not found.");
 	}
 
 }

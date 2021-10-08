@@ -36,7 +36,7 @@ public class Comment {
 
 	@Column(name = "status", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private StatusValue status;
+	private StatusValue status=StatusValue.ACTIVE;
 
 	public Long getId() {
 		return id;

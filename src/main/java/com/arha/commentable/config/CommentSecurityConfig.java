@@ -29,6 +29,8 @@ public class CommentSecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf().disable().authorizeRequests().
 		antMatchers("/api/home/**","/register","/register/**")
 		.permitAll();
+		http.authorizeRequests().
+		antMatchers("/api/admin/**").hasAnyAuthority("ROLE_ADMIN");
 		http.authorizeRequests().anyRequest().authenticated();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(springSecurityFilter, UsernamePasswordAuthenticationFilter.class);

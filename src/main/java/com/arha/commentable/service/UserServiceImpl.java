@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public List<UserBo> list() {
-		List<User> users = userRepository.findAll();
+		List<User> users = userRepository.findAll();// mapper
 		List<UserBo> userBos = new ArrayList<>();
 		for (User user : users) {
 			UserBo bo = new UserBo();

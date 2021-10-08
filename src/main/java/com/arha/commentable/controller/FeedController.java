@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,9 +52,15 @@ public class FeedController {
 
 	/**
 	 * update and exiting feed. [note user can update only his feed.]
+	 * @return 
 	 */
-	public void update() {
-
+	@PutMapping("/{feedId}")
+	public FeedDetailBo update(@RequestBody @Valid FeedDetailBo feed) {
+		try {
+			return feedService.update(feed);
+		} catch (Exception e) {
+			throw new RuntimeException("Internal server error.");
+		}
 	}
 
 	/**

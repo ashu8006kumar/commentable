@@ -62,6 +62,9 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public FeedDetailBo update(FeedDetailBo feedBo) {
 		Feed feed = feedRepository.getById(feedBo.getId());
+		if(feed==null) {
+			throw new RuntimeException("Not able to find feed");
+		}
 		feed.setDescription(feedBo.getDescription());
 		feed.setLastUpdated(new Date());
 		feed.setUpdatedBy("XYZ@XYZ");

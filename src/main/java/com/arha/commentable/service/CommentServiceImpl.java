@@ -33,8 +33,7 @@ public class CommentServiceImpl implements CommentService {
 	public CommentBo save(Feed feed, CommentBo commentBo) {
 		Comment comment = new Comment();
 		comment.setText(commentBo.getText());
-		comment.setFeed(feed);
-		comment.setDateCreated(new Date());
+		comment.setFeed(feed); 
 		comment.setCreatedBy("Ashish");// later we do it with spring security
 		commentRepository.save(comment);
 		commentBo.setId(comment.getId());

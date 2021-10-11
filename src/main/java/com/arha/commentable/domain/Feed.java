@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -108,6 +110,19 @@ public class Feed {
 	}
 
 	public Feed() {
+	}
+
+	@PrePersist
+	public void prePersistFeed() {
+		System.out.println("new feed saved");
+		setDateCreated(new Date());
+		setStatus(StatusValue.ACTIVE);
+	}
+
+	@PreUpdate
+	public void preUpdateUpdate() {
+		System.out.println("Feed updated");
+		setLastUpdated(new Date());
 	}
 
 }

@@ -62,6 +62,7 @@ public class FeedController {
 	@PutMapping("/{feedId}")
 	public FeedDetailBo update(@PathVariable Long feedId, @RequestBody @Valid FeedDetailBo feed) {
 		try {
+			feed.setId(feedId);
 			return feedService.update(feed);
 		} catch (Exception e) {
 			throw new RuntimeException("Internal server error.");

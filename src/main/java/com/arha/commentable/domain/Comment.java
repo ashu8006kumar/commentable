@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -36,7 +38,7 @@ public class Comment {
 
 	@Column(name = "status", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private StatusValue status=StatusValue.ACTIVE;
+	private StatusValue status = StatusValue.ACTIVE;
 
 	public Long getId() {
 		return id;
@@ -84,6 +86,16 @@ public class Comment {
 
 	public void setStatus(StatusValue status) {
 		this.status = status;
+	}
+
+	@PrePersist
+	public void prePersistFeed() {
+		setDateCreated(new Date());
+		setStatus(StatusValue.ACTIVE);
+	}
+
+	@PreUpdate
+	public void preUpdateUpdate() {
 	}
 
 }

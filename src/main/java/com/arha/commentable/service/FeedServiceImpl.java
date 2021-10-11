@@ -62,7 +62,7 @@ public class FeedServiceImpl implements FeedService {
 	@Override
 	public FeedDetailBo update(FeedDetailBo feedBo) {
 		Feed feed = feedRepository.getById(feedBo.getId());
-		if(feed==null) {
+		if (feed == null) {
 			throw new RuntimeException("Not able to find feed");
 		}
 		feed.setDescription(feedBo.getDescription());
@@ -79,6 +79,22 @@ public class FeedServiceImpl implements FeedService {
 			return feed;
 		}
 		throw new RuntimeException("Feed not found.");
+	}
+
+	@Override
+	public void delete(Long feedId) {
+		Feed feed = get(feedId);
+		feedRepository.delete(feed);
+	}
+
+	@Override
+	public void updateStatus(Long feedId, StatusValue statusValue) {
+		Feed feed = get(feedId);
+		feed.setStatus(statusValue);
+		feed.setUpdatedBy("XYZ@XYZ");
+		feed.setLastUpdated(new Date());
+		feedRepository.save(feed);
+
 	}
 
 }

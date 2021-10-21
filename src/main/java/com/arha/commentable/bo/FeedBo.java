@@ -5,11 +5,13 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-@JsonInclude(value=Include.NON_NULL)
+
+@JsonInclude(value = Include.NON_NULL)
 public class FeedBo {
 	private Long id;
 	private String description;
 	private Date dateCreated;
+	private UserCompactBo createdBy;
 	private List<CommentBo> comments;
 
 	public Long getId() {
@@ -31,9 +33,9 @@ public class FeedBo {
 	public FeedBo() {
 	}
 
-	public FeedBo(Long id,String description, Date dateCreated) {
+	public FeedBo(Long id, String description, Date dateCreated) {
 		super();
-		this.id=id;
+		this.id = id;
 		this.description = description;
 		this.dateCreated = dateCreated;
 	}
